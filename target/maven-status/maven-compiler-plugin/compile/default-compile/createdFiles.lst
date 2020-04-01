@@ -1,0 +1,7 @@
+cgm/java/question_answer/model/Answers.class
+cgm/java/question_answer/utils/HibernateUtil.class
+cgm/java/question_answer/AnswerOfLifeApplication.class
+cgm/java/question_answer/utils/ArgumentsPersistenceUtil.class
+cgm/java/question_answer/utils/ConverterUtil.class
+cgm/java/question_answer/dao/QuestionAnswerDao.class
+cgm/java/question_answer/model/Question.class
