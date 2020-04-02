@@ -30,11 +30,11 @@ public class ArgumentsPersistenceUtil {
       }
       persistQuestionsOrFetchAnswers();
     } else {
-      System.out.println("Please ask question or add a question with answers no arguments present");
+      PrintOutputUtil.printNoArgumentsPresent();
     }
   }
 
-  private static void persistQuestionsOrFetchAnswers() {
+  public static void persistQuestionsOrFetchAnswers() {
     int totalAnswerArguments = argAnswers.size();
 
     if (totalAnswerArguments == 0) {
@@ -43,30 +43,30 @@ public class ArgumentsPersistenceUtil {
       Question questionAsked = new Question(argQuestion.toString());
 
       if (verifyIfQuestionExists(questionAsked)) {
-        getAnswersAndPrint(questionAsked);
+        getAnswers(questionAsked);
       } else {
         persistQuestionWithAnswers();
       }
     }
   }
 
-  private static void fetchAnswersForQuestionAsked() {
+  public static void fetchAnswersForQuestionAsked() {
     Question questionAsked = new Question(argQuestion.toString());
 
     if (verifyIfQuestionExists(questionAsked)) {
-      getAnswersAndPrint(questionAsked);
+      getAnswers(questionAsked);
     } else {
       PrintOutputUtil.printDefaultAnswer(argQuestion);
     }
   }
 
-  private static void getAnswersAndPrint(Question questionAsked) {
+  public static void getAnswers(Question questionAsked) {
     Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
     PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
   }
 
 
-  private static void persistQuestionWithAnswers() {
+  public static void persistQuestionWithAnswers() {
     Question questionWithAnswers = new Question(argQuestion.toString());
 
     //convert list of arg string answers to Set of Answer objects
@@ -83,7 +83,7 @@ public class ArgumentsPersistenceUtil {
     }
   }
 
-  private static boolean verifyIfQuestionExists(Question questionAsked) {
+  public static boolean verifyIfQuestionExists(Question questionAsked) {
     Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
     return alreadyExistsQuestion != null;
   }

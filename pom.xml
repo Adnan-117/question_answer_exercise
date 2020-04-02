@@ -17,6 +17,7 @@
     <hibernate.validator.version>6.1.2.Final</hibernate.validator.version>
     <mysql.connector.version>8.0.16</mysql.connector.version>
     <junit.version>4.12</junit.version>
+    <cucumber.version>5.4.2</cucumber.version>
     <version.pmd.plugin>3.8</version.pmd.plugin>
     <spotbugs.plugin.version>3.1.10</spotbugs.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -41,6 +42,20 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Cucumber Integration Testing -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
 

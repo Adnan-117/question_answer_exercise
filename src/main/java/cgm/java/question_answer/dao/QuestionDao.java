@@ -27,7 +27,7 @@ public class QuestionDao {
         if (transaction != null) {
           transaction.rollback();
         }
-        System.out.println("Questions persistence failed");
+        System.out.println("Questions persistence failed" + "\n");
         e.printStackTrace();
       } finally {
         session.close();
@@ -43,10 +43,10 @@ public class QuestionDao {
                                                      .setParameter("question_text", question.getQuestionText())
                                                      .getSingleResult();
     } catch (HibernateException e) {
-      System.out.println("Question fetching failed");
+      System.out.println("Question fetching failed" + "\n");
       e.printStackTrace();
     } catch (NoResultException nre) {
-      System.out.println("Question doesn't exist");
+      System.out.println("Question doesn't exist" + "\n");
     }
     return resultantQuestion;
   }

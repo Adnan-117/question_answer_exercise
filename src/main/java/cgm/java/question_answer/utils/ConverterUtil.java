@@ -10,6 +10,7 @@ public class ConverterUtil {
 
   public static Set<Answers> convertListArgumentToSetAnswers(List<String> argAnswers) {
     Set<Answers> answers = argAnswers.stream()
+                                     .map(String::trim)
                                      .map(Answers::new)
                                      .collect(Collectors.toSet());
     return answers;
