@@ -39,11 +39,7 @@ public class ArgumentsPersistenceUtil {
     } else {
       Question alreadyExistsQuestion = QuestionAnswerDao.getQuestionByText(new Question(argQuestion.toString()));
       if (alreadyExistsQuestion != null) {
-//        answers.forEach(alreadyExistsQuestion::addQuestionToAnswer);
-//        boolean updatedQuestion = QuestionAnswerDao.updateQuestionWithAnswers(alreadyExistsQuestion);
-//        if (updatedQuestion) {
-//          fetchAnswersAndPrint();
-//        }
+        System.out.println("This Question already exist please find the answers");
         fetchAnswersAndPrint();
       } else {
         persistQuestion(answers);

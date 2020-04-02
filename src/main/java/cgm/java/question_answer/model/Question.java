@@ -4,6 +4,7 @@ package cgm.java.question_answer.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,14 +12,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "Question")
-public class Question implements Serializable {
+public class Question  {
 
   //Attributes
   @Id
@@ -31,7 +31,7 @@ public class Question implements Serializable {
   @Column(name = "question_text", unique = true)
   private String question_text;
 
-  @OneToMany(cascade = {CascadeType.ALL }, mappedBy = "question")
+  @OneToMany(cascade = {CascadeType.ALL }, mappedBy = "question", fetch = FetchType.EAGER)
   public Set<Answers> answersList = new HashSet<>();
 
   //Default Constructor
