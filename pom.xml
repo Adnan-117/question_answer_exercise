@@ -68,7 +68,7 @@
         </configuration>
       </plugin>
 
-      <!-- Maven Assembly Plugin -->
+      <!-- Maven Assembly Plugin for creating executable jar-->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>

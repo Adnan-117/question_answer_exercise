@@ -1,19 +1,24 @@
 /.idea/
 /.settings/
-/target/archive-tmp/
-/target/classes/
-/target/generated-sources/
-/target/generated-test-sources/
-/target/maven-archiver/
-/target/maven-status/
-/target/test-classes/
-/target/java-basic.xml
-/target/java-empty.xml
-/target/java-imports.xml
-/target/java-unnecessary.xml
-/target/java-unusedcode.xml
-/target/pmd.xml
-/target/question_answer-0.1.0.jar
-/target/spotbugsXml.xml
+target
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+
+### Data ###
+/docker-compose/Data/
+
+### IntelliJ IDEA ###
+.idea
+/*.env
+*.iws
+*.iml
+*.ipr
+
 /question_answer.iml
+
 .DS_Store

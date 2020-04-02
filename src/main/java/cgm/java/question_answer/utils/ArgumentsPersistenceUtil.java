@@ -1,6 +1,7 @@
 package cgm.java.question_answer.utils;
 
-import cgm.java.question_answer.dao.QuestionAnswerDao;
+import cgm.java.question_answer.dao.AnswerDao;
+import cgm.java.question_answer.dao.QuestionDao;
 import cgm.java.question_answer.model.Answers;
 import cgm.java.question_answer.model.Question;
 
@@ -13,63 +14,78 @@ public class ArgumentsPersistenceUtil {
   private static StringBuilder argQuestion = new StringBuilder();
   private static List<String> argAnswers = new ArrayList<>();
   private static boolean flagQuestionAppended = false;
-  final static String defaultAnswer = " \"the answer to life, universe and everything is 42\" according to \"The hitchhikers guide to the Galaxy\" ";
 
   public static void extractArgumentsAndAppend(String[] args) {
-    for (String arg : args) {
-      if (!arg.contains("?") && !flagQuestionAppended) {
-        argQuestion.append(arg);
-        argQuestion.append(" ");
-      } else if (arg.contains("?")) {
-        argQuestion.append(arg);
-        flagQuestionAppended = true;
-      } else if (flagQuestionAppended) {
-        argAnswers.add(arg);
+    if (args.length > 0) {
+      for (String arg : args) {
+        if (!arg.contains("?") && !flagQuestionAppended) {
+          argQuestion.append(arg);
+          argQuestion.append(" ");
+        } else if (arg.contains("?")) {
+          argQuestion.append(arg);
+          flagQuestionAppended = true;
+        } else if (flagQuestionAppended) {
+          argAnswers.add(arg);
+        }
       }
+      persistQuestionsOrFetchAnswers();
+    } else {
+      System.out.println("Please ask question or add a question with answers no arguments present");
     }
-    persistQuestionsOrFetchAnswers();
   }
 
   private static void persistQuestionsOrFetchAnswers() {
     int totalAnswerArguments = argAnswers.size();
-    Set<Answers> answers = ConverterUtil.convertListArgumentToSetAnswers(argAnswers);
 
     if (totalAnswerArguments == 0) {
-      fetchAnswersAndPrint();
+      fetchAnswersForQuestionAsked();
     } else {
-      Question alreadyExistsQuestion = QuestionAnswerDao.getQuestionByText(new Question(argQuestion.toString()));
-      if (alreadyExistsQuestion != null) {
-        System.out.println("This Question already exist please find the answers");
-        fetchAnswersAndPrint();
+      Question questionAsked = new Question(argQuestion.toString());
+
+      if (verifyIfQuestionExists(questionAsked)) {
+        getAnswersAndPrint(questionAsked);
       } else {
-        persistQuestion(answers);
+        persistQuestionWithAnswers();
       }
     }
   }
 
-  private static void fetchAnswersAndPrint() {
+  private static void fetchAnswersForQuestionAsked() {
     Question questionAsked = new Question(argQuestion.toString());
-    Set<Answers> answers = QuestionAnswerDao.getAnswers(questionAsked);
-    //print answers fetched otherwise default answer since the question is not stored yet
-    if (answers.isEmpty()) {
-      System.out.println(argQuestion.toString());
-      System.out.println(defaultAnswer);
+
+    if (verifyIfQuestionExists(questionAsked)) {
+      getAnswersAndPrint(questionAsked);
     } else {
-      System.out.println(argQuestion.toString());
-      answers.forEach(answer -> System.out.println(answer.getAnswerText()));
+      PrintOutputUtil.printDefaultAnswer(argQuestion);
     }
   }
 
-  private static void persistQuestion(Set<Answers> answers) {
+  private static void getAnswersAndPrint(Question questionAsked) {
+    Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
+    PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
+  }
+
+
+  private static void persistQuestionWithAnswers() {
     Question questionWithAnswers = new Question(argQuestion.toString());
+
+    //convert list of arg string answers to Set of Answer objects
+    Set<Answers> answers = ConverterUtil.convertListArgumentToSetAnswers(argAnswers);
+
+    // add question to the child i.e answer and vice versa
     answers.forEach(questionWithAnswers::addQuestionToAnswer);
+
     //save questions to db with answers
-    boolean isPersisted = QuestionAnswerDao.saveQuestion(questionWithAnswers);
+    boolean isPersisted = QuestionDao.saveQuestion(questionWithAnswers);
+
     if (isPersisted) {
-      System.out.println("Questions Successfully added with answers");
-      System.out.println(questionWithAnswers.getQuestionText());
-      questionWithAnswers.getAnswersList().forEach(answer -> System.out.println(answer.getAnswerText()));
+      PrintOutputUtil.printPersistedQuestionWithAnswers(questionWithAnswers);
     }
+  }
+
+  private static boolean verifyIfQuestionExists(Question questionAsked) {
+    Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
+    return alreadyExistsQuestion != null;
   }
 
 }
