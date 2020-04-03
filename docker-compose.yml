@@ -12,8 +12,21 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+    container_name: mysql-database
     volumes:
-      - my-db:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
+
+  jenkins:
+    image: jenkins:lastest
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - jenkins-data:/var/jenkins_home
+
 
 volumes:
-  my-db:
+  mysql-data:
+  jenkins-data:

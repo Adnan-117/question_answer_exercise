@@ -28,7 +28,7 @@ public class PrintOutputUtil {
     System.out.println("This Question exists in the program" + "\n");
     System.out.println("• " + argQuestion.toString());
 
-    answersFetched.forEach(answer -> System.out.println(LeftPaddingToStringUtil.addLeftPadding(2, "•" + answer.getAnswerText())));
+    answersFetched.forEach(answer -> System.out.println(LeftPaddingToStringUtil.addLeftPadding(2, "• " + answer.getAnswerText())));
   }
 
   public static void printPersistedQuestionWithAnswers(Question questionWithAnswers) {
@@ -37,7 +37,7 @@ public class PrintOutputUtil {
     System.out.println("• " + questionWithAnswers.getQuestionText());
 
     questionWithAnswers.getAnswersList()
-                       .forEach(answer -> System.out.println(LeftPaddingToStringUtil.addLeftPadding(2, "•" + answer.getAnswerText())));
+                       .forEach(answer -> System.out.println(LeftPaddingToStringUtil.addLeftPadding(2, "• " + answer.getAnswerText())));
   }
 
 }

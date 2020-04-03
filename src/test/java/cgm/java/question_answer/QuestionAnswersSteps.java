@@ -54,6 +54,14 @@ public class QuestionAnswersSteps {
     Assert.assertFalse(retrievedExistFlag);
   }
 
+  @And("the question includes atleast one answer")
+  public void theQuestionIncludesAtleastOnAnswer() {
+    long expectedAnswerSetSize = 1;
+    long actualAnswerSetSize = (long) questionToAdd.getAnswersList().size();
+
+    Assert.assertTrue( actualAnswerSetSize >= expectedAnswerSetSize);
+  }
+
   @And("the program stores the question into the database")
   public void theProgramStoresTheQuestionIntoTheDatabase() {
     boolean addedQuestionFlag = QuestionDao.saveQuestion(questionToAdd);
