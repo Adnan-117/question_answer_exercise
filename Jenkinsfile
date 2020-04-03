@@ -18,7 +18,7 @@ pipeline {
                     echo "M2_HOME = ${M2_HOME}"
                 '''
             }
-            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -DskipTests clean package'
@@ -37,11 +37,6 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
-            }
-        }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
             }
         }
     }
