@@ -4,7 +4,7 @@ import cgm.java.question_answer.dao.AnswerDao;
 import cgm.java.question_answer.dao.QuestionDao;
 import cgm.java.question_answer.model.Answers;
 import cgm.java.question_answer.model.Question;
-import cgm.java.question_answer.utils.ArgumentsPersistenceUtil;
+import cgm.java.question_answer.service.ArgumentsPersistenceService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -31,7 +31,7 @@ public class QuestionAnswersSteps {
 
   @Then("verify this question doesn't exist")
   public void verifyQuestionNotExist() {
-    boolean retrievedExistFlag = ArgumentsPersistenceUtil.verifyIfQuestionExists(questionAskedNotStoredYet);
+    boolean retrievedExistFlag = ArgumentsPersistenceService.verifyIfQuestionExists(questionAskedNotStoredYet);
     Assert.assertFalse(retrievedExistFlag);
   }
 
@@ -50,7 +50,7 @@ public class QuestionAnswersSteps {
 
   @Then("verify this question doesn't exist with answers")
   public void verifyThisQuestionDoesnTExistWithAnswers() {
-    boolean retrievedExistFlag = ArgumentsPersistenceUtil.verifyIfQuestionExists(questionToAdd);
+    boolean retrievedExistFlag = ArgumentsPersistenceService.verifyIfQuestionExists(questionToAdd);
     Assert.assertFalse(retrievedExistFlag);
   }
 
@@ -75,7 +75,7 @@ public class QuestionAnswersSteps {
 
   @Then("verify this question exists")
   public void verifyThisQuestionExists() {
-    boolean retrievedExistFlag = ArgumentsPersistenceUtil.verifyIfQuestionExists(questionAskedAlreadyStored);
+    boolean retrievedExistFlag = ArgumentsPersistenceService.verifyIfQuestionExists(questionAskedAlreadyStored);
     Assert.assertTrue(retrievedExistFlag);
   }
 
