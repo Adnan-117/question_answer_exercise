@@ -41,17 +41,19 @@ public class HibernateUtil {
     return sessionFactory;
   }
 
+  //the properties are matched to the docker compose mysql service environments input
   private static Properties getProperties() {
     Properties settings = new Properties();
     settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+    // this ip is to be replaced since it is the docker network ip of the mysql docker container
     settings.put(Environment.URL,
-                 "jdbc:mysql://172.20.0.1:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
+                 "jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
     settings.put(Environment.USER, "user");
     settings.put(Environment.PASS, "password");
     settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
-//    settings.put(Environment.SHOW_SQL, "true");
+    //    settings.put(Environment.SHOW_SQL, "true");
     settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-//    settings.put(Environment.HBM2DDL_AUTO, "update");
+    //    settings.put(Environment.HBM2DDL_AUTO, "update");
     settings.put(Environment.HBM2DDL_AUTO, "create-drop");
     return settings;
   }

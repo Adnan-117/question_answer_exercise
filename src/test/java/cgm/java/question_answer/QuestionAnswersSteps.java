@@ -18,9 +18,11 @@ import java.util.stream.Stream;
 
 public class QuestionAnswersSteps {
 
-  public Question questionAskedNotStoredYet = null;
-  public Question questionAskedAlreadyStored = null;
-  public Question questionToAdd = null;
+  private Question questionAskedNotStoredYet = null;
+  private Question questionAskedAlreadyStored = null;
+  private Question questionToAdd = null;
+  private Question exceededQuestion = null;
+  private Question exceededQuestionWithAnswer = null;
   final static String defaultAnswer = " \"the answer to life, universe and everything is 42\" according to \"The hitchhikers guide to the Galaxy\" ";
 
 
@@ -40,6 +42,37 @@ public class QuestionAnswersSteps {
     System.out.println(defaultAnswer);
   }
 
+  @Given("the user adds question exceeding maximum characters")
+  public void theUserAddsQuestionExceedingMaximumCharacters() {
+    StringBuilder question = getAlphaNumericString(256);
+    question.append(" adn?");
+    Set<Answers> answersSet = getSetOfAnswersFromString("Pizza");
+
+    exceededQuestion = new Question(question.toString(), answersSet);
+    answersSet.forEach(exceededQuestion::addQuestionToAnswer);
+  }
+
+  @Then("the question is not stored in the database")
+  public void theQuestionIsNotStoredInTheDatabase() {
+    boolean addedQuestionFlag = QuestionDao.saveQuestion(exceededQuestion);
+    Assert.assertFalse(addedQuestionFlag);
+  }
+
+  @Given("the user adds question with answers exceeding maximum characters")
+  public void theUserAddsQuestionWithAnswersExceedingMaximumCharacters() {
+    StringBuilder answer = getAlphaNumericString(256);
+    Set<Answers> answersSet = getSetOfAnswersFromString(answer.toString());
+
+    String askedQuestion  = "What is Peter's favourite food?";
+    exceededQuestionWithAnswer = new Question(askedQuestion, answersSet);
+    answersSet.forEach(exceededQuestionWithAnswer::addQuestionToAnswer);
+  }
+
+  @Then("the question with answer is not stored in the database")
+  public void theQuestionWithAnswerIsNotStoredInTheDatabase() {
+    boolean addedQuestionFlag = QuestionDao.saveQuestion(exceededQuestionWithAnswer);
+    Assert.assertFalse(addedQuestionFlag);
+  }
 
   @Given("the user adds the question {string} with answers {string}")
   public void theUserAddsTheQuestionWithAnswers(String question, String answers) {
@@ -59,7 +92,13 @@ public class QuestionAnswersSteps {
     long expectedAnswerSetSize = 1;
     long actualAnswerSetSize = (long) questionToAdd.getAnswersList().size();
 
-    Assert.assertTrue( actualAnswerSetSize >= expectedAnswerSetSize);
+    Assert.assertTrue(actualAnswerSetSize >= expectedAnswerSetSize);
+  }
+
+  @And("both question {string} and answers {string} doesn't exceed the maximum character space of {int}")
+  public void bothQuestionQuestionAndAnswersAnswersNotExceedTheMaximumCharacterSpaceOf(String question, String answers, int maxSize) {
+    Assert.assertTrue(question.length() < maxSize);
+    Assert.assertTrue(answers.length() < maxSize);
   }
 
   @And("the program stores the question into the database")
@@ -102,6 +141,33 @@ public class QuestionAnswersSteps {
     return Stream.of(answers.split(","))
                  .map(String::trim)
                  .collect(Collectors.toSet());
+  }
+
+  // function to generate a random string of length n
+  static StringBuilder getAlphaNumericString(int n) {
+
+    // chose a Character random from this String
+    String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        + "0123456789"
+        + "abcdefghijklmnopqrstuvxyz";
+
+    // create StringBuffer size of AlphaNumericString
+    StringBuilder sb = new StringBuilder(n);
+
+    for (int i = 0; i < n; i++) {
+
+      // generate a random number between
+      // 0 to AlphaNumericString variable length
+      int index
+          = (int) (AlphaNumericString.length()
+          * Math.random());
+
+      // add Character one by one in end of sb
+      sb.append(AlphaNumericString
+                    .charAt(index));
+    }
+
+    return sb;
   }
 
 }
