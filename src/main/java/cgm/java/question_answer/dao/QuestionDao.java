@@ -2,6 +2,8 @@ package cgm.java.question_answer.dao;
 
 import cgm.java.question_answer.model.Question;
 import cgm.java.question_answer.utils.HibernateUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,11 +13,13 @@ import javax.persistence.PersistenceException;
 
 public class QuestionDao {
 
+  private static final Logger logger = LogManager.getLogger(QuestionDao.class);
+
   public static boolean saveQuestion(Question question) {
     boolean isPersisted = false;
     Transaction transaction = null;
-
-    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    try {
       // start a transaction
       transaction = session.beginTransaction();
       // save the Question object includes answer/s
@@ -29,9 +33,12 @@ public class QuestionDao {
       }
       e.printStackTrace();
     } catch (PersistenceException pre) {
-      System.out.println("Questions persistence failed, Data too long for column" + "\n");
-      pre.printStackTrace();
+      logger.error("\n" + "Questions persistence failed, Data too long for column" + "\n");
+      //      pre.printStackTrace();
+      // the parent is persisted i.e question so need to delete it a workaround
       deleteQuestionByText(question);
+    } finally {
+      session.close();
     }
     return isPersisted;
   }
@@ -44,11 +51,11 @@ public class QuestionDao {
                                  .setParameter("question_text", question.getQuestionText())
                                  .getSingleResult();
     } catch (HibernateException e) {
-      System.out.println("Question fetching failed" + "\n");
-      e.printStackTrace();
+      logger.error("\n" + "Question fetching failed" + "\n");
+      //      e.printStackTrace();
     } catch (NoResultException nre) {
-      System.out.println("Question doesn't exist" + "\n");
-      nre.printStackTrace();
+      logger.error("\n" + "Question doesn't exist" + "\n");
+      //      nre.printStackTrace();
     }
     return resultantQuestion;
   }
@@ -65,12 +72,11 @@ public class QuestionDao {
       if (transaction != null) {
         transaction.rollback();
       }
-      e.printStackTrace();
+      logger.error("\n" + "Question deletion failed" + "\n");
+      //      e.printStackTrace();
     } catch (NoResultException nre) {
-      System.out.println("Question doesn't exist" + "\n");
-      nre.printStackTrace();
-    } finally {
-      session.close();
+      logger.error("\n" + "Question doesn't exist" + "\n");
+      //      nre.printStackTrace();
     }
   }
 

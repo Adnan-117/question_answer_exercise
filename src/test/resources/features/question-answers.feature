@@ -24,9 +24,9 @@ Feature: Question and Answers
     And both question <question> and answers <answers> doesn't exceed the maximum character space of 255
     And the program stores the question into the database
     Examples:
-      | question                         | answers                      |
-      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken"    |
-      | "What is Peters favourite play?" | "Cricket , Soccer"           |
+      | question                         | answers                   |
+      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken" |
+      | "What is Peters favourite play?" | "Cricket , Soccer"        |
 
 
   Scenario Outline: question asked stored in the database
@@ -34,7 +34,7 @@ Feature: Question and Answers
     Then verify this question exists
     And the program must fetch the answers <answers>
     Examples:
-      | question                         | answers                      |
-      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken"    |
-      | "What is Peters favourite play?" | "Cricket , Soccer"           |
+      | question                         | answers                   |
+      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken" |
+      | "What is Peters favourite play?" | "Cricket , Soccer"        |
 

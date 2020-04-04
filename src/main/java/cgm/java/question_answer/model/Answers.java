@@ -30,7 +30,7 @@ public class Answers {
   private String answer_text;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "question_id" , nullable = false)
+  @JoinColumn(name = "question_id", nullable = false)
   private Question question;
 
   public Answers() {
@@ -45,7 +45,9 @@ public class Answers {
     this.question = question;
   }
 
-  public  Long getAnswerId() { return answer_id; }
+  public Long getAnswerId() {
+    return answer_id;
+  }
 
   public Question getQuestion() {
     return question;

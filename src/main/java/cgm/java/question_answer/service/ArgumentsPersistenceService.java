@@ -6,6 +6,8 @@ import cgm.java.question_answer.model.Answers;
 import cgm.java.question_answer.model.Question;
 import cgm.java.question_answer.utils.ConverterUtil;
 import cgm.java.question_answer.utils.PrintOutputUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +18,14 @@ public class ArgumentsPersistenceService {
   private static StringBuilder argQuestion = new StringBuilder();
   private static List<String> argAnswers = new ArrayList<>();
   private static boolean flagQuestionAppended = false;
+  private static final Logger logger = LogManager.getLogger(ArgumentsPersistenceService.class);
 
-  public static void extractArgumentsAndAppend(String[] args) {
+  //the arguments passed as program arguments for example
+  //What is Peters Favourite sports? "Badminton" "Tennis"
+  //the following method extract arguments to identify question and answers from the above argument
+  public static void extractArgumentsAndAppend(String... args) {
     if (args.length > 0) {
+      //      logger.debug("Arguments are present");
       for (String arg : args) {
         if (!arg.contains("?") && !flagQuestionAppended) {
           argQuestion.append(arg);
@@ -40,13 +47,17 @@ public class ArgumentsPersistenceService {
     int totalAnswerArguments = argAnswers.size();
 
     if (totalAnswerArguments == 0) {
+      //      logger.debug("Answers are not present fetch answers");
       fetchAnswersForQuestionAsked();
     } else {
+      //      logger.debug("Answers are present");
       Question questionAsked = new Question(argQuestion.toString());
 
       if (verifyIfQuestionExists(questionAsked)) {
+        //      logger.debug("Question already stored get answers");
         getAnswers(questionAsked);
       } else {
+        //      logger.debug("Question not stored ");
         persistQuestionWithAnswers();
       }
     }
@@ -56,15 +67,21 @@ public class ArgumentsPersistenceService {
     Question questionAsked = new Question(argQuestion.toString());
 
     if (verifyIfQuestionExists(questionAsked)) {
+      //      logger.debug("Question already stored get answers");
       getAnswers(questionAsked);
     } else {
+      //      logger.debug("Question not stored but has no answers therefore logging default answer");
       PrintOutputUtil.printDefaultAnswer(argQuestion);
     }
   }
 
   public static void getAnswers(Question questionAsked) {
-    Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
-    PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
+    try {
+      Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
+      PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
+    } catch (NullPointerException e) {
+      logger.error("Answers does not exist");
+    }
   }
 
 
@@ -86,8 +103,13 @@ public class ArgumentsPersistenceService {
   }
 
   public static boolean verifyIfQuestionExists(Question questionAsked) {
-    Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
-    return alreadyExistsQuestion != null;
+    try {
+      Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
+      return alreadyExistsQuestion != null;
+    } catch (NullPointerException e) {
+      logger.error("Question does not exist");
+      return false;
+    }
   }
 
 }
