@@ -46,10 +46,10 @@ public class HibernateUtil {
     Properties settings = new Properties();
     settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
     // this ip is to be replaced since it is the docker network ip of the mysql docker container
+//    settings.put(Environment.URL,
+//                 "jdbc:mysql://172.20.0.1:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
     settings.put(Environment.URL,
-                 "jdbc:mysql://172.20.0.1:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
-//  settings.put(Environment.URL,
-//               "jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
+                 "jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8");
     settings.put(Environment.USER, "user");
     settings.put(Environment.PASS, "password");
     settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
