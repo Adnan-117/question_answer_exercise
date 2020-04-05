@@ -74,9 +74,9 @@ public class QuestionDao {
       }
       logger.error("\n" + "Question deletion failed" + "\n");
       //      e.printStackTrace();
-    } catch (NoResultException nre) {
+    } catch (IllegalArgumentException e) {
       logger.error("\n" + "Question doesn't exist" + "\n");
-      //      nre.printStackTrace();
+      //      e.printStackTrace();
     }
   }
 
