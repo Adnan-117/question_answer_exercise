@@ -39,6 +39,7 @@ public class ArgumentsPersistenceService {
       }
       persistQuestionsOrFetchAnswers();
     } else {
+      //      logger.debug("Arguments are not present");
       PrintOutputUtil.printNoArgumentsPresent();
     }
   }
@@ -75,12 +76,13 @@ public class ArgumentsPersistenceService {
     }
   }
 
-  public static void getAnswers(Question questionAsked) {
+  public static boolean verifyIfQuestionExists(Question questionAsked) {
     try {
-      Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
-      PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
+      Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
+      return alreadyExistsQuestion != null;
     } catch (NullPointerException e) {
-      logger.error("Answers does not exist");
+      logger.error("Question does not exist");
+      return false;
     }
   }
 
@@ -102,13 +104,13 @@ public class ArgumentsPersistenceService {
     }
   }
 
-  public static boolean verifyIfQuestionExists(Question questionAsked) {
+  public static void getAnswers(Question questionAsked) {
     try {
-      Question alreadyExistsQuestion = QuestionDao.getQuestionByText(questionAsked);
-      return alreadyExistsQuestion != null;
+      Set<Answers> answersFetched = AnswerDao.getAnswers(questionAsked);
+      PrintOutputUtil.printAnswersFetched(argQuestion, answersFetched);
+      //      logger.debug("answers fetched");
     } catch (NullPointerException e) {
-      logger.error("Question does not exist");
-      return false;
+      logger.error("Answers does not exist");
     }
   }
 

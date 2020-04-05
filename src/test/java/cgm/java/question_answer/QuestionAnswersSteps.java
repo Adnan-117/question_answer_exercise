@@ -5,6 +5,7 @@ import cgm.java.question_answer.dao.QuestionDao;
 import cgm.java.question_answer.model.Answers;
 import cgm.java.question_answer.model.Question;
 import cgm.java.question_answer.service.ArgumentsPersistenceService;
+import cgm.java.question_answer.utils.ConverterUtil;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -82,9 +84,9 @@ public class QuestionAnswersSteps {
     logger.info("Question exceeding with answers not stored in the database");
   }
 
-  @Given("the user adds the question {string} with answers {string}")
-  public void theUserAddsTheQuestionWithAnswers(String question, String answers) {
-    Set<Answers> answersSet = getSetOfAnswersFromString(answers);
+  @Given("the user adds the question {string} with answers")
+  public void theUserAddsTheQuestionWithAnswers(String question, List<String> answers) {
+    Set<Answers> answersSet = ConverterUtil.convertListArgumentToSetAnswers(answers);
     questionToAdd = new Question(question, answersSet);
     answersSet.forEach(questionToAdd::addQuestionToAnswer);
     logger.info("question added with answers " + question + " " + answers);
@@ -104,10 +106,10 @@ public class QuestionAnswersSteps {
     Assert.assertTrue(actualAnswerSetSize >= expectedAnswerSetSize);
   }
 
-  @And("both question {string} and answers {string} doesn't exceed the maximum character space of {int}")
-  public void bothQuestionQuestionAndAnswersAnswersNotExceedTheMaximumCharacterSpaceOf(String question, String answers, int maxSize) {
-    Assert.assertTrue(question.length() < maxSize);
-    Assert.assertTrue(answers.length() < maxSize);
+  @And("both question and answers doesn't exceed the maximum character space of {int}")
+  public void bothQuestionAndAnswersNotExceedTheMaximumCharacterSpace(int maxSize) {
+    Assert.assertTrue(questionToAdd.getQuestionText().length() < maxSize);
+    questionToAdd.getAnswersList().forEach(answers -> Assert.assertTrue(answers.getAnswerText().length() < maxSize));
   }
 
   @And("the program stores the question into the database")
@@ -127,21 +129,19 @@ public class QuestionAnswersSteps {
     Assert.assertTrue(retrievedExistFlag);
   }
 
-  @And("the program must fetch the answers {string}")
-  public void theProgramMustFetchTheAnswers(String answers) {
-    Set<String> expectedAnswers = getSetOfStringFromString(answers);
+  @And("the program must fetch the following answers")
+  public void theProgramMustFetchTheFollowingAnswers(List<String> answers) {
+    Set<String> expectedAnswers = new HashSet<>(answers);
     Set<Answers> resultantAnswers = AnswerDao.getAnswers(questionAskedAlreadyStored);
 
     Set<String> resultantAnswerText = new HashSet<>();
-    resultantAnswers.forEach(answers1 -> resultantAnswerText.add(answers1.getAnswerText()));
+    resultantAnswers.forEach(answersFetched -> resultantAnswerText.add(answersFetched.getAnswerText()));
 
     Assert.assertEquals(expectedAnswers, resultantAnswerText);
     logger.info("Question asked: " + " " + questionAskedAlreadyStored.getQuestionText());
     resultantAnswerText.forEach(logger::info);
   }
 
-  //Please note from the test input i have passed a single string of comma separated answer
-  //but the java program accepts a set of answers to a question therefore this conversion
   private Set<Answers> getSetOfAnswersFromString(String answers) {
     return Stream.of(answers.split(","))
                  .map(String::trim)
@@ -181,5 +181,4 @@ public class QuestionAnswersSteps {
 
     return sb;
   }
-
 }

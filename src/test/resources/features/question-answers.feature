@@ -1,12 +1,9 @@
 Feature: Question and Answers
 
-  Scenario Outline: question asked not stored in the database
-    Given the user asks a question <question>
+  Scenario: question asked not stored in the database
+    Given the user asks a question "What is Peters favourite food?"
     Then verify this question doesn't exist
     And the program prints the default answer
-    Examples:
-      | question                         |
-      | "What is Peters favourite food?" |
 
   Scenario: user add a question with answers not stored in the database with question overflows the max characters
     Given the user adds question exceeding maximum characters
@@ -17,24 +14,22 @@ Feature: Question and Answers
     Then the question with answer is not stored in the database
 
 
-  Scenario Outline: user adds a question with answers not stored in the database
-    Given the user adds the question <question> with answers <answers>
+  Scenario: user adds a question with answers not stored in the database
+    Given the user adds the question "What is Peters favourite food?" with answers
+      | "Pasta"   |
+      | "Rice"    |
+      | "Chicken" |
     Then verify this question doesn't exist with answers
     And the question includes atleast one answer
-    And both question <question> and answers <answers> doesn't exceed the maximum character space of 255
+    And both question and answers doesn't exceed the maximum character space of 255
     And the program stores the question into the database
-    Examples:
-      | question                         | answers                   |
-      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken" |
-      | "What is Peters favourite play?" | "Cricket , Soccer"        |
 
 
-  Scenario Outline: question asked stored in the database
-    Given the user asks a question <question> already stored
+  Scenario: question asked stored in the database
+    Given the user asks a question "What is Peters favourite food?" already stored
     Then verify this question exists
-    And the program must fetch the answers <answers>
-    Examples:
-      | question                         | answers                   |
-      | "What is Peters favourite food?" | "Pasta ,  Rice , Chicken" |
-      | "What is Peters favourite play?" | "Cricket , Soccer"        |
+    And the program must fetch the following answers
+      | "Pasta"   |
+      | "Rice"    |
+      | "Chicken" |
 
