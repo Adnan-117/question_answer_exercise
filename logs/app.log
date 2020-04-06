@@ -1,39 +1,39 @@
 
-2020-04-05 11:24:34,362 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.4.13.Final
-2020-04-05 11:24:34,465 INFO o.h.a.c.Version [main] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2020-04-05 11:24:34,539 WARN o.h.o.c.pooling [main] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2020-04-05 11:24:34,543 INFO o.h.o.c.pooling [main] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8]
-2020-04-05 11:24:34,543 INFO o.h.o.c.pooling [main] HHH10001001: Connection properties: {password=****, user=user}
-2020-04-05 11:24:34,543 INFO o.h.o.c.pooling [main] HHH10001003: Autocommit mode: false
-2020-04-05 11:24:34,546 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [main] HHH000115: Hibernate connection pool size: 20 (min=1)
-2020-04-05 11:24:34,869 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2020-04-05 11:24:35,104 INFO o.h.v.i.u.Version [main] HV000001: Hibernate Validator 6.1.2.Final
-2020-04-05 11:24:35,384 INFO o.h.o.c.access [main] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@401788d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2020-04-05 11:24:35,404 INFO o.h.o.c.access [main] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4c04216f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-2020-04-05 11:24:35,565 ERROR c.j.q.d.QuestionDao [main] 
+2020-04-06 12:45:11,231 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.4.13.Final
+2020-04-06 12:45:11,346 INFO o.h.a.c.Version [main] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-04-06 12:45:11,444 WARN o.h.o.c.pooling [main] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-04-06 12:45:11,449 INFO o.h.o.c.pooling [main] HHH10001005: using driver [com.mysql.cj.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/db?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8]
+2020-04-06 12:45:11,449 INFO o.h.o.c.pooling [main] HHH10001001: Connection properties: {password=****, user=user}
+2020-04-06 12:45:11,449 INFO o.h.o.c.pooling [main] HHH10001003: Autocommit mode: false
+2020-04-06 12:45:11,451 INFO o.h.e.j.c.i.DriverManagerConnectionProviderImpl [main] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-04-06 12:45:11,820 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-04-06 12:45:12,101 INFO o.h.v.i.u.Version [main] HV000001: Hibernate Validator 6.1.2.Final
+2020-04-06 12:45:12,458 INFO o.h.o.c.access [main] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7e0f9528] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-04-06 12:45:12,488 INFO o.h.o.c.access [main] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@733534f9] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-04-06 12:45:12,691 ERROR c.j.q.d.QuestionDao [main] 
 Question doesn't exist
 
-2020-04-05 11:24:35,566 INFO c.j.q.QuestionAnswersSteps [main] Question asked, not stored yet: What is Peters favourite food?
-2020-04-05 11:24:35,567 INFO c.j.q.QuestionAnswersSteps [main]  "the answer to life, universe and everything is?42" according to "The hitchhikers guide to the Galaxy" 
-2020-04-05 11:24:35,574 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding max character 26pGc64Ynrj5CBmQHW89ubqSiBtJiEsMRHz0IVbogFVW5joTiA1N4JhnXnvyNdLHQlmbPLCgdS7HXWEtmr3ti7I6zgRGf2q7BYfloe9LNqCyssg7YEpQI7YFL0gRvg4JaBIG0WCEgo5jYE9eLf4Dri6vcgTpD7pfBU3k7XGxAQk7zk9hbtebe9xM5H1v9IleQ0uzHsckotDlNUF7W7UcoiUnX42Ls9UVOtnZQLC7BAiLR9huK8XJme7uGQGWA3Pz adn?
-2020-04-05 11:24:35,663 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 1406, SQLState: 22001
-2020-04-05 11:24:35,663 ERROR o.h.e.j.s.SqlExceptionHelper [main] Data truncation: Data too long for column 'question_text' at row 1
-2020-04-05 11:24:35,669 ERROR c.j.q.d.QuestionDao [main] 
+2020-04-06 12:45:12,693 INFO c.j.q.QuestionAnswersSteps [main] Question asked, not stored yet: What is Peters favourite food?
+2020-04-06 12:45:12,694 INFO c.j.q.QuestionAnswersSteps [main]  "the answer to life, universe and everything is?42" according to "The hitchhikers guide to the Galaxy" 
+2020-04-06 12:45:12,702 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding max character tdl0kzOTbZvNXMSBrDnTqHAfgmyIrJahivqoHl1r6b4r660zed7frQoB6hVmkM6LIaxm17dIS3UNnxva8OLbRh1QP4FHxb27SozkmG10cPHZmourZuy3ffIH5mlMJYyEcfo4IpkdVbWjL8e6yuDeVbnC5MK2v18fnytquSTtOAl3KdpG2Nfs8YNdbEKSgE9bK6K9kD2hFCDFrhPSdTgijoSWujLuio10I8H2VoLNJSjjIzb8tTXVKStZ2niWf6KP adn?
+2020-04-06 12:45:12,789 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 1406, SQLState: 22001
+2020-04-06 12:45:12,789 ERROR o.h.e.j.s.SqlExceptionHelper [main] Data truncation: Data too long for column 'question_text' at row 1
+2020-04-06 12:45:12,795 ERROR c.j.q.d.QuestionDao [main] 
 Questions persistence failed, Data too long for column
 
-2020-04-05 11:24:35,680 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding not stored in the database
-2020-04-05 11:24:35,685 INFO c.j.q.QuestionAnswersSteps [main] Answer exceeding max character JIQmToE2UTCXM6WXdEamaXGaMLvaW22LHjtjAEdJKdQ52p6Sa2LNo9g9UYF4MEDiz1stBcJGtOGHmPhT1mVtfuzaJ8LpkuYY1IOVi4q7LmOXNWMjy6TIZclcNVeVLE6UVCXHJQaYa0L70bM9OWZOuNNcVPMeUemXRVuJP5kc8L26P6u3q07zai1WKZ0jxkho4yiWY31c90qv5QOH0fo63q0dnyzXO6JXqcJAIByI2sGLGVUmOb5KbeybB2fxTbgX
-2020-04-05 11:24:35,701 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 1406, SQLState: 22001
-2020-04-05 11:24:35,702 ERROR o.h.e.j.s.SqlExceptionHelper [main] Data truncation: Data too long for column 'answer_text' at row 1
-2020-04-05 11:24:35,704 ERROR c.j.q.d.QuestionDao [main] 
+2020-04-06 12:45:12,806 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding not stored in the database
+2020-04-06 12:45:12,811 INFO c.j.q.QuestionAnswersSteps [main] Answer exceeding max character JVNnhhYghW3x8ubDeLU5irgsQoKpL4zNcO9ucu70xxZ8mGUaKYnpCTQQvHpUkH2NRjjJX4PjG6tszZoIRfOZkiazXxY1tbbuhEstf44Mhy2QbYvVkDtVLLg0kpPX8DXvJhMGrQmRWdxf3z01bQACIi4GlQ8Vje0Va02p0DmF59BhAUUSpKsMs6ExI2IJXTC0A1yMdrEZ7AlliA5nRea9g0xLR8su7WXcvrdZ78GCODm6EV75sj56NbuF1zTSmcAk
+2020-04-06 12:45:12,837 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 1406, SQLState: 22001
+2020-04-06 12:45:12,837 ERROR o.h.e.j.s.SqlExceptionHelper [main] Data truncation: Data too long for column 'answer_text' at row 1
+2020-04-06 12:45:12,840 ERROR c.j.q.d.QuestionDao [main] 
 Questions persistence failed, Data too long for column
 
-2020-04-05 11:24:35,710 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding with answers not stored in the database
-2020-04-05 11:24:35,719 INFO c.j.q.QuestionAnswersSteps [main] question added with answers What is Peters favourite food? ["Pasta", "Rice", "Chicken"]
-2020-04-05 11:24:35,723 ERROR c.j.q.d.QuestionDao [main] 
+2020-04-06 12:45:12,847 INFO c.j.q.QuestionAnswersSteps [main] Question exceeding with answers not stored in the database
+2020-04-06 12:45:12,856 INFO c.j.q.QuestionAnswersSteps [main] question added with answers What is Peters favourite food? ["Pasta", "Rice", "Chicken"]
+2020-04-06 12:45:12,862 ERROR c.j.q.d.QuestionDao [main] 
 Question doesn't exist
 
-2020-04-05 11:24:35,796 INFO c.j.q.QuestionAnswersSteps [main] Question asked:  What is Peters favourite food?
-2020-04-05 11:24:35,796 INFO c.j.q.QuestionAnswersSteps [main] "Chicken"
-2020-04-05 11:24:35,797 INFO c.j.q.QuestionAnswersSteps [main] "Pasta"
-2020-04-05 11:24:35,797 INFO c.j.q.QuestionAnswersSteps [main] "Rice"
+2020-04-06 12:45:12,996 INFO c.j.q.QuestionAnswersSteps [main] Question asked:  What is Peters favourite food?
+2020-04-06 12:45:12,998 INFO c.j.q.QuestionAnswersSteps [main] "Chicken"
+2020-04-06 12:45:12,998 INFO c.j.q.QuestionAnswersSteps [main] "Pasta"
+2020-04-06 12:45:12,999 INFO c.j.q.QuestionAnswersSteps [main] "Rice"
