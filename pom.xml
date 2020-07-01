@@ -19,7 +19,7 @@
     <junit.version>4.12</junit.version>
     <cucumber.version>5.4.2</cucumber.version>
     <version.pmd.plugin>3.8</version.pmd.plugin>
-    <log4j2.version>2.13.1</log4j2.version>
+    <log4j2.version>2.13.3</log4j2.version>
     <spotbugs.plugin.version>3.1.10</spotbugs.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
